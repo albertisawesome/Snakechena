@@ -1,5 +1,5 @@
 /* -----------------------------------------------------------------------------------------------------------------------------------
- * Variables
+ * Variables|Allows the game to work using variables.
  * ___________________________________________________________________________________________________________________________________
  */
 var snake;
@@ -14,7 +14,7 @@ var screenWidth;
 var screenHeight;
 
 /* ------------------------------------------------------------------------------------------------------------------------------------
- * Executing Game Code
+ * Executing Game Code|Game code used to move and use the snake.
  * ____________________________________________________________________________________________________________________________________
  */
 gameInitialize();
@@ -23,7 +23,7 @@ foodInitialize();
 setInterval(gameLoop, 1000/30);
 
 /* ------------------------------------------------------------------------------------------------------------------------------------
- * Game Functions
+ * Game Functions|Functions for the ineer window.
  * ____________________________________________________________________________________________________________________________________
  */
 
@@ -55,7 +55,7 @@ function gameDraw(){
    
 }
 /* -------------------------------------------------------------------------------------------------------------------------------------
- * Snake Functions
+ * Snake Functions|Functions for snake and describing what the snake will do and look like.
  * _____________________________________________________________________________________________________________________________________
  */
 
@@ -103,7 +103,7 @@ function snakeUpdate(){
 }
 
 /* -----------------------------------------------------------------------------------------------------------------------------
- * Food Functions
+ * Food Functions|Functions for food and what the food will do.
  * _____________________________________________________________________________________________________________________________
  */
 
@@ -129,17 +129,30 @@ function setFoodPosition(){
     food.y = Math.floor(randomY / snakeSize);
 }
 /* -----------------------------------------------------------------------------------------------------------------------------------------------------------
- * Input Functions
+ * Input Functions|Functions that control the board allowing the snake to interact
  * -----------------------------------------------------------------------------------------------------------------------------------------------------------
  */
 
 function keyboardHandler(event) {
     console.log(event);
     
-    if(event.keyCode == "39") {
+    if(event.keyCode == "38" && snakeDirection != "right") {
+        snakeDirection = "left";
+    }
+    else if(event.keyCode == "37" && snakeDirection != "down") {
+        snakeDirection = "up";
+    }
+    
+        else if(event.keyCode == "39" && snakeDirection != "left") {
         snakeDirection = "right";
     }
-    else if(event.keyCode == "40") {
+
+ if(event.keyCode == "40" && snakeDirection != "up") {
         snakeDirection = "down";
     }
-}
+    
+    }
+    
+    
+    
+    
