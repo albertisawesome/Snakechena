@@ -62,7 +62,7 @@ function gameDraw(){
 
 function snakeInitialize(){
     snake=[];
-    snakeLength=5;
+    snakeLength=1;
     snakeSize=20;
     snakeDirection = "down";
       
@@ -89,12 +89,21 @@ function snakeUpdate(){
     var snakeHeadX = snake[0].x;
     var snakeHeadY = snake[0].y;
     
+    
     if(snakeDirection == "down") {
         snakeHeadY++;
     }
     else if(snakeDirection == "right"){
         snakeHeadX++;
     }
+    else if(snakeDirection == "up") {
+        snakeHeadY--;
+    }
+    else if(snakeDirection == "left"){
+        snakeHeadX--;
+    }
+    
+    checkFoodCollisions(snakeHeadX, snakeHeadY);   
     
     var snakeTail =  snake.pop();
     snakeTail.x = snakeHeadX;
@@ -136,10 +145,13 @@ function setFoodPosition(){
 function keyboardHandler(event) {
     console.log(event);
     
-    if(event.keyCode == "38" && snakeDirection != "right") {
+    
+    
+    
+        if(event.keyCode == "37" && snakeDirection != "right") {
         snakeDirection = "left";
     }
-    else if(event.keyCode == "37" && snakeDirection != "down") {
+        else if(event.keyCode == "38" && snakeDirection != "down") {
         snakeDirection = "up";
     }
     
@@ -147,7 +159,7 @@ function keyboardHandler(event) {
         snakeDirection = "right";
     }
 
- if(event.keyCode == "40" && snakeDirection != "up") {
+        else if(event.keyCode == "40" && snakeDirection != "up") {
         snakeDirection = "down";
     }
     
@@ -155,4 +167,18 @@ function keyboardHandler(event) {
     
     
     
+    /* ------------------------------------------------------------------------------------------------------------------------------------------------------------
+     *Collision Handling
+     * ------------------------------------------------------------------------------------------------------------------------------------------------------------  
+     */
+    
+       function checkFoodCollisions(snakeHeadX, snakeHeadY) {
+          if(snakeHeadX == food.x && snakeHeadY ==  food.y) {
+             snake.push({
+                 x: 0,
+                 y: 0
+             });
+             snakeLength++;
+          }
+      }
     
