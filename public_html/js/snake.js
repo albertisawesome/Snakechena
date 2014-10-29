@@ -14,6 +14,7 @@ var screenWidth;
 var screenHeight;
 
 var gameState;
+var gameOverMenu;
 
 /* ------------------------------------------------------------------------------------------------------------------------------------
  * Executing Game Code|Game code used to move and use the snake.
@@ -40,6 +41,8 @@ function gameInitialize() {
     canvas.height = screenHeight;
 
     document.addEventListener("keydown", keyboardHandler);
+    
+    gameOverMenu = document.getElementById("gameOver");
     
     setState("PLAY");
 
@@ -189,7 +192,7 @@ function gameLoop() {
     }
     function checkWallCollisions(snakeHeadX, snakeHeadY) {
         if (snakeHeadX * snakeSize >= screenWidth || snakeHeadX < 0 * snakeSize) {
-            gameState = "GAME OVER";
+            setState("GAME OVER");
         }
     }
 
@@ -199,6 +202,19 @@ function gameLoop() {
      */
 
 
-    function setState(state) {
+function setState(state) {
         gameState = state;
+        showMenu(state);
+}
+
+function displayMenu(menu) {
+    menu.style.visibility = "visible";
+}
+
+function showMenu(state) {
+    console.log(state);
+    if(state == "GAME OVER") {
+        console.log("in if");
+        displayMenu(gameOverMenu);
+    }
 }
