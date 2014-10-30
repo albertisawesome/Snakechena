@@ -15,6 +15,8 @@ var screenHeight;
 
 var gameState;
 var gameOverMenu;
+var restartButton; 
+
 
 /* ------------------------------------------------------------------------------------------------------------------------------------
  * Executing Game Code|Game code used to move and use the snake.
@@ -43,6 +45,10 @@ function gameInitialize() {
     document.addEventListener("keydown", keyboardHandler);
     
     gameOverMenu = document.getElementById("gameOver");
+    centerMenuPosition(gameOverMenu);
+    
+    restartButton = document.getElementById("restartButton");
+    restartButton.addEventListener("click", gameRestart);
     
     setState("PLAY");
 
@@ -61,6 +67,12 @@ function gameLoop() {
         context.fillStyle = "rgb(4, 6, 39)";
         context.fillRect(0, 0, screenWidth, screenHeight);
 
+    }
+    
+    function gameRestart() {
+        snakeInitialize();
+        foodInitialize();
+        setState("PLAY");
     }
     /* -------------------------------------------------------------------------------------------------------------------------------------
      * Snake Functions|Functions for snake and describing what the snake will do and look like.
@@ -207,6 +219,12 @@ function setState(state) {
         showMenu(state);
 }
 
+/* -----------------------------------------------------------------------------------------------------------------------
+ *     Menu Functions
+ *  ----------------------------------------------------------------------------------------------------------------------
+ */ 
+
+
 function displayMenu(menu) {
     menu.style.visibility = "visible";
 }
@@ -217,4 +235,9 @@ function showMenu(state) {
         console.log("in if");
         displayMenu(gameOverMenu);
     }
+}
+
+function centerMenuPosition(menu) {
+    menu.style.top = (screenHeight / 2) - (menu.offsetHeight) + "px";
+    menu.style.left = (screenWidth / 2) - (menu.offsetWidth) + "px";
 }
